@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="http://code.jquery.com/jquery-1.4.1.js"></script>
+
+<script>
+screen.lockOrientationUniversal = (mode) => screen.orientation && screen.orientation.lock(mode).then(() => {}, err => console.log(err)) || screen.mozLockOrientation && screen.mozLockOrientation(mode) || screen.msLockOrientation && screen.msLockOrientation(mode);
+
+$(document).ready(function(){
+    containerDiv=document.getElementById("container")
+
+    goButton=document.getElementById("go")
+    goButton.addEventListener("click",onGo)
+
+    backButton=document.getElementById("back")
+    backButton.addEventListener("click",onBack)
+
+    document.addEventListener("fullscreenchange",function(){
+            if (document.fullscreen)
+            {
+                screen.lockOrientationUniversal("landscape")
+            }
+            else
+            {
+                screen.orientation.unlock()
+            }
+        })
+}
+)
+
+function onGo()
+{
+    containerDiv.requestFullscreen()
+}
+
+function onBack()
+{
+    document.exitFullscreen()
+}
+</script>
+
+</head>
+
+
+<body>
+
+<div id="container">
+
+<input type="button" id="go" onclick="onGo()" value="Go">Go Full Screen and Landscape Mode
+<br><br>
+<input type="button" id="back" onclick="onBack()" value="Back">Exit Full Screen and Exit Landscape Mode
+
+</div>
+
+</body>
+</html>
+
+
+
